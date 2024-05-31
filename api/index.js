@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
-import auth from "./router/authRoute.js";
-import commentRoute from "./router/CommentRouter.js";
-import writePost from "./router/writeRoute.js";
-import userPage from './router/userPage.js';
+import auth from "./router/authRouter.js"
+import post from "./router/postRouter.js"
+import comment from "./router/commentRouter.js"
+import user from "./router/userRouter.js"
 import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
@@ -31,10 +31,10 @@ app.use(morgan('combined'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // 라우트 설정
-app.use('/api/posts', writePost);
-app.use('/api/comments', commentRoute);
+app.use('/api/posts', post);
+app.use('/api/comments', comment);
 app.use('/api/auth', auth);
-app.use('/api/mypage', userPage);
+app.use('/api/mypage', user);
 
 // MongoDB 연결
 const connect = async () => {
