@@ -20,7 +20,8 @@ const User=new mongoose.Schema({
         type:String,
     },
     isAdmin:{
-        type:Boolean
+        type:Boolean,
+        default:false
     }
 });
-export default mongoose.model("User2",User)
+export default mongoose.model("User2",User,"user2");

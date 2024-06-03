@@ -34,7 +34,7 @@ const Login = () => {
         dispatch({ type: "LOGIN_START" });
 
         try {
-            const response = await axios.post('/auth/login', formData);
+            const response = await axios.post('/auth/loginman', formData);
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data.details });
             setError('');
             navigate('/');  // 로그인 성공 시 홈 페이지로 이동
@@ -61,7 +61,6 @@ const Login = () => {
                         name="ID" 
                         value={formData.ID} 
                         onChange={handleChange} 
-                        autoComplete="username" 
                     />
                 </div>
                 <div>
@@ -71,7 +70,6 @@ const Login = () => {
                         name="password" 
                         value={formData.password} 
                         onChange={handleChange} 
-                        autoComplete="current-password" 
                     />
                 </div>
                 <button type="submit">로그인</button>

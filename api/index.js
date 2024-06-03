@@ -67,7 +67,8 @@ mongoose.connection.on("disconnected", () => {
     console.log("몽고디비 연결 끊김");
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 8800, () => {
     connect();
+    console.log(`포트번호 ${process.env.PORT}에서 실행중`)
     console.log("백엔드와 연결");
 });

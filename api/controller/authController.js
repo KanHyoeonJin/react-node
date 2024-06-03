@@ -1,10 +1,13 @@
 import User from "../model/User.js";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 import brcypt from "bcryptjs";
 import { createError } from "../utile/error.js";
 import path from "path";
 import { fileURLToPath } from "url";
-
+import axios
+ from "axios";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8800/api';
+axios.defaults.withCredentials = true;
 
 export const register=async(req,res,next)=>{
     try {
@@ -41,8 +44,13 @@ export const register=async(req,res,next)=>{
 
 export const Login = async (req, res, next) => {
     try {
-        const user = await User.findOne({ username: req.body.username });
-        if (!user) return next(createError(404, "User not found!"));
+        console.log("입력된유저: ",req.body.ID)
+        const user = await User.findOne({ ID: req.body.ID });
+        if (!user) {
+            console.log("유저ID씨발거: "+req.body.ID)
+            return next(createError(404, "User not found!"));
+
+        }
 
         const isPasswordCorrect = await brcypt.compare(
             req.body.password,
@@ -52,7 +60,7 @@ export const Login = async (req, res, next) => {
             return next(createError(400, "Wrong password"))
         }
         const token = jwt.sign(
-            { id: user._id, isAdmin: user.isAdmin, username: user.username },
+            { id: user._id, isAdmin: user.isAdmin, ID: user.ID },
             process.env.JWT
         );
 

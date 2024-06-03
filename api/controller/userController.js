@@ -19,7 +19,7 @@ export const updateProfileImage = async (req, res, next) => {
             return next(createError(400, "User ID is required"));
         }
 
-        const user = await UserModel.findById(userId);
+        const user = await User.findById(userId);
         if (!user) {
             return next(createError(404, "User not found"));
         }
